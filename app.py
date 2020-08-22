@@ -14,3 +14,6 @@ def generate_api_key():
 def pesquisa_usuario_escavador(termo_pesquisa):
     result = pesquisa_usuario(termo_pesquisa)
     return result
+
+if __name__ == '__main__':
+    app.run(debug=True)
