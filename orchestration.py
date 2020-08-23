@@ -19,7 +19,6 @@ def key_generator():
         response = requests.post(url=url, data=json.dumps(request_body), headers=headers)
         response_dict = json.loads(response.content)
         dados_credenciais = {
-            "token_type": response_dict["token_type"],
             "access_token": response_dict["access_token"],
             "refresh_token": response_dict["refresh_token"]
         }
@@ -29,21 +28,24 @@ def key_generator():
 
 
 def pesquisa_usuario(termo_pesquisa):
-    credenciais = key_generator()
-    access_token = credenciais["access_token"]
-    url = 'https://api.escavador.com/api/v1/busca'
+    try:
+        credenciais = key_generator()
+        access_token = credenciais["access_token"]
+        url = 'https://api.escavador.com/api/v1/busca'
 
-    params = {
-        'q': termo_pesquisa,  
-        'qo': 't',  
-        'page': '1'
-    }
+        params = {
+            'q': termo_pesquisa,  
+            'qo': 't',  
+            'page': '1'
+        }
 
-    headers = {
-        'Authorization': f'Bearer {access_token}',
-        'X-Requested-With': 'XMLHttpRequest'
-    }
+        headers = {
+            'Authorization': f'Bearer {access_token}',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
 
-    response = requests.get(url, headers=headers, params=params)
-    resopnse_dict = json.loads(response.content)
-    return resopnse_dict
+        response = requests.get(url, headers=headers, params=params)
+        resopnse_dict = json.loads(response.content)
+        return resopnse_dict
+    except Exception as e:
+        raise e 

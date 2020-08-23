@@ -10,7 +10,7 @@ def generate_api_key():
     return credentials
 
 
-@app.route('/pesquisa_usuario/{termo_pesquisa}')
+@app.route('/pesquisa_usuario/<termo_pesquisa>')
 def pesquisa_usuario_escavador(termo_pesquisa):
     result = pesquisa_usuario(termo_pesquisa)
     return result
